@@ -7,19 +7,18 @@ const props = defineProps({
 </script>
 
 <template>
-  <header class="bg-white shadow">
+  <header class="bg-white border-b-2 border-slate-100">
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-      <h1 class="text-3xl font-bold text-gray-900">
-        {{ title }}
-      </h1>
+      <div class="flex items-center justify-between">
+        <h1 class="text-2xl font-bold text-slate-900">{{ title }}</h1>
+        <slot name="header"></slot>
+      </div>
     </div>
   </header>
   <main>
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
       <!-- Replace with your content -->
-      <div class="px-4 py-6 sm:px-0">
-        <slot></slot>
-      </div>
+      <slot></slot>
       <!-- /End replace -->
     </div>
   </main>

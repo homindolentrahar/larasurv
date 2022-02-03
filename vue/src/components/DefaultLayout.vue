@@ -8,7 +8,7 @@ import {
   MenuItem,
   MenuItems,
 } from "@headlessui/vue";
-import { MenuIcon, XIcon } from "@heroicons/vue/outline";
+import { MenuIcon, XIcon, LogoutIcon } from "@heroicons/vue/outline";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "../store/index";
@@ -35,30 +35,25 @@ const logout = () => {
 </script>
 
 <template>
-  <div class="min-h-full">
-    <Disclosure as="nav" class="bg-gray-800" v-slot="{ open }">
+  <div class="min-h-screen">
+    <Disclosure as="nav" class="bg-slate-900" v-slot="{ open }">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
           <div class="flex items-center">
-            <div class="flex-shrink-0">
-              <img
-                class="h-8 w-8"
-                src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                alt="Workflow"
-              />
-            </div>
+            <router-link :to="{ name: 'Dashboard' }" class="flex-shrink-0">
+              <img class="h-8 w-8" src="/survey.png" alt="logo" />
+            </router-link>
             <div class="hidden md:block">
               <div class="ml-10 flex items-baseline space-x-4">
                 <router-link
                   v-for="item in navigation"
                   :key="item.name"
                   :to="item.to"
-                  active-class="bg-gray-900 text-white"
                   :class="[
                     this.$route.name === item.to.name
-                      ? ''
-                      : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                    'px-3 py-2 rounded-md text-sm font-medium',
+                      ? 'bg-slate-800 text-white'
+                      : 'text-slate-400 hover:bg-slate-800 hover:text-white',
+                    'px-4 py-2.5 rounded-md text-sm font-medium transition-all duration-200',
                   ]"
                 >
                   {{ item.name }}
@@ -72,10 +67,10 @@ const logout = () => {
               <Menu as="div" class="ml-3 relative">
                 <div>
                   <MenuButton
-                    class="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                    class="max-w-xs bg-slate-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-800 focus:ring-slate-200"
                   >
                     <span class="sr-only">Open user menu</span>
-                    <img class="h-8 w-8 rounded-full" :src="user" alt="" />
+                    <img class="h-8 w-8 rounded-full" src="/user.png" alt="" />
                   </MenuButton>
                 </div>
                 <transition
@@ -87,12 +82,12 @@ const logout = () => {
                   leave-to-class="transform opacity-0 scale-95"
                 >
                   <MenuItems
-                    class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                   >
                     <MenuItem v-slot="{ active }">
                       <a
                         @click="logout"
-                        class="block px-4 py-2 text-sm text-gray-700 cursor-pointer"
+                        class="block px-5 py-2.5 text-sm text-red-600 font-bold rounded-md cursor-pointer hover:bg-red-500 hover:text-red-50"
                         >Sign Out</a
                       >
                     </MenuItem>
@@ -104,7 +99,7 @@ const logout = () => {
           <div class="-mr-2 flex md:hidden">
             <!-- Mobile menu button -->
             <DisclosureButton
-              class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+              class="bg-slate-800 inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-slate-50 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-800 focus:ring-slate-700"
             >
               <span class="sr-only">Open main menu</span>
               <MenuIcon v-if="!open" class="block h-6 w-6" aria-hidden="true" />
@@ -121,36 +116,36 @@ const logout = () => {
             :key="item.name"
             as="a"
             :to="item.to"
-            active-class="bg-gray-90 text-white"
             :class="[
               this.$route.name === item.to.name
-                ? ''
-                : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-              'block px-3 py-2 rounded-md text-base font-medium',
+                ? 'bg-slate-800 text-white'
+                : 'text-slate-400 hover:bg-slate-800 hover:text-white',
+              'block px-5 py-2.5 rounded-md text-base font-medium',
             ]"
             >{{ item.name }}
           </router-link>
         </div>
-        <div class="pt-4 pb-3 border-t border-gray-700">
-          <div class="flex items-center px-5">
+        <div class="py-4 border-t border-slate-700">
+          <div class="flex gap-4 items-center px-5">
             <div class="flex-shrink-0">
-              <!-- <img class="h-10 w-10 rounded-full" :src="user" alt="" /> -->
+              <img class="h-10 w-10 rounded-full" src="/user.png" alt="user" />
             </div>
-            <div class="ml-3">
-              <div class="text-base font-medium leading-none text-white">
+            <div class="flex flex-col items-start gap-1">
+              <div class="text-base font-semibold leading-none text-white">
                 {{ user.name }}
               </div>
-              <div class="text-sm font-medium leading-none text-gray-400">
+              <div class="text-sm font-normal leading-none text-slate-400">
                 {{ user.email }}
               </div>
             </div>
           </div>
-          <div class="mt-3 px-2 space-y-1">
+          <div class="mt-8 px-2 space-y-1">
             <DisclosureButton
               as="a"
               @click="logout"
-              class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 cursor-pointer"
+              class="flex items-center gap-2 px-4 py-2.5 rounded-md bg-red-500 bg-opacity-25 text-sm font-semibold text-red-500 hover:bg-opacity-40 cursor-pointer transition-all duration-200"
             >
+              <LogoutIcon class="h-5 w-5" />
               Sign Out
             </DisclosureButton>
           </div>
